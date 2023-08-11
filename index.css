@@ -1,0 +1,24 @@
+/* @import '~node_modules/modern-normalize/modern-normalize.css'; */
+
+body {
+    position: relative;
+    margin: 0;
+    padding: 0;
+    /* background-image: url('../texture/Background.png'); */
+}
+
+.is-hidden {
+    display: none;
+}
+
+.hand-element {
+    position: absolute;
+    top: 70%;
+    left: 40%;
+}
+
+.text-element {
+    position: absolute;
+    top: 90%;
+    left: 40%;
+}
