@@ -6,14 +6,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Page title</title>
   <link rel="stylesheet" href="./index.css" />
-  <script type="importmap">
+  <!-- <script type="importmap">
   {
       "imports": {
           "three": "./node_modules/three/build/three.module.min.js",
           "GLTFLoader" : "./node_modules/three/examples/jsm/loaders/GLTFLoader.js",
           "OrbitControls": "./node_modules/three/examples/jsm/controls/OrbitControls.js"
       }
-  } </script>
+  } </script> -->
 </head>
 
 <body>
@@ -36,6 +36,13 @@
     </div>
 
   </div>
+  <script type="importmap">
+              {
+                  "imports": {
+                      "three": "https://threejs.org/build/three.module.js"
+                  }
+              }
+          </script>
   <script type="module" src="./index.js"></script>
   <script type="module" src="./closeBtn.js"></script>
 </body>
