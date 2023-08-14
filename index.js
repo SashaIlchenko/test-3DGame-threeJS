@@ -36,6 +36,7 @@ let wayTextureOffsetX = 0;
 let manSpeed = 10;
 let run;
 let won;
+let died;
 const loader = new GLTFLoader()
 const brainPositions = [
     new THREE.Vector3(-4, 0, -10),
@@ -73,7 +74,8 @@ loader.load('/threejs_tz/Stickman.glb', (gltf) => {
     mixer = new THREE.AnimationMixer(man);
     run = mixer.clipAction(gltf.animations[4]);
     won = mixer.clipAction(gltf.animations[0]);
-    died = mixer.clipAction(gltf.animations[3]);
+    died = mixer.clipAction(gltf.animations[2]);
+    console.log(gltf.animations)
     run.play();
     window.addEventListener('keypress', (e) => {
         switch (e.code) {
@@ -91,7 +93,6 @@ loader.load('/threejs_tz/Stickman.glb', (gltf) => {
         }
     })
     scene.add(man);
-
 })
 loader.load('/threejs_tz/TrackFloor.glb', (gltf) => {
     way = gltf.scene;
@@ -145,6 +146,13 @@ function animate() {
     if (parseInt(resultText.textContent) > 200) {
         run.stop();
         won.play();
+    }
+    else if (parseInt(resultText.textContent) > 120 && parseInt(resultText.textContent) < 200) {
+        setTimeout(() => {
+            run.stop();
+            died.play();
+        }, 20000);
+
     }
     renderer.render(scene, camera);
 }
