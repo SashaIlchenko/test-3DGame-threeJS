@@ -9,12 +9,27 @@
 </head>
 
 <body>
-  <div><img class='hand-element' src='./threejs_tz/Tutorial_Hand.png' />
-    <img class='text-element' src='./threejs_tz/Tutorial_SWIPE TO START.png' />
+  <div class="scene-container">
+    <canvas id="canvas"></canvas>
+    <div class="results">
+      <p class=" label-text">Points:</p>
+      <p class="results-label label-text">0</p>
+    </div>
+    <div class="overlay">
+      <button class="close-btn" type="button">X</button>
+      <p class="label-text">Control:</p>
+      <p class="label-text">key "A": left</p>
+      <p class="label-text">key "D": right</p>
+      <p class="label-text">kew "S": middle</p>
+    </div>
+    <div class="img-wrapper">
+      <img class='hand-element' src='./threejs_tz/Tutorial_Hand.png' />
+      <img class='text-element' src='./threejs_tz/Tutorial_SWIPE TO START.png' />
+    </div>
+
   </div>
-  <div class="way-container"></div>
   <script type="module" src="./index.js"></script>
-  <!-- <script type="module" src="./way.js"></script> -->
+  <script type="module" src="./closeBtn.js"></script>
 </body>
 
 </html>

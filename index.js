@@ -9,15 +9,18 @@ sunLight.castShadow = true;
 scene.add(sunLight);
 
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight);
-
+const sceneContainer = document.querySelector('.scene-container');
 const renderer = new THREE.WebGLRenderer();
 renderer.shadowMap.enabled = true;
-renderer.setSize(window.innerWidth, window.innerHeight);
 scene.background = new THREE.Color(0x87CEEB)
-document.body.appendChild(renderer.domElement);
+renderer.setSize(sceneContainer.offsetWidth, sceneContainer.offsetHeight);
+sceneContainer.appendChild(renderer.domElement);
+
 const buttonPlay = document.querySelector('.hand-element');
 const textPlay = document.querySelector('.text-element');
-buttonPlay.addEventListener('click', onBtnClick)
+const imgWrapper = document.querySelector('.img-wrapper');
+const resultText = document.querySelector('.results-label')
+imgWrapper.addEventListener('click', onBtnClick)
 const controlCamera = new OrbitControls(camera, renderer.domElement);
 controlCamera.update();
 controlCamera.enableDamping = true;
@@ -30,21 +33,25 @@ let mixer;
 let way;
 let brain;
 let wayTextureOffsetX = 0;
-let manSpeed = 1;
+let manSpeed = 10;
 const loader = new GLTFLoader()
 const brainPositions = [
-    new THREE.Vector3(-4, 0, -15),
-    new THREE.Vector3(-4, 0, -3),
-    new THREE.Vector3(4, 0, -30),
-    new THREE.Vector3(-4, 0, -20),
-    new THREE.Vector3(4, 0, -25),
-    new THREE.Vector3(0, 0, -50),
-    new THREE.Vector3(-4, 0, -42),
-    new THREE.Vector3(4, 0, -65)
+    new THREE.Vector3(-4, 0, -10),
+    new THREE.Vector3(-4, 0, -40),
+    new THREE.Vector3(4, 0, -20),
+    new THREE.Vector3(-4, 0, -30),
+    new THREE.Vector3(4, 0, -50),
+    new THREE.Vector3(0, 0, -65),
+    new THREE.Vector3(-4, 0, -80),
+    new THREE.Vector3(4, 0, -60),
+    new THREE.Vector3(4, 0, -70),
+    new THREE.Vector3(0, 0, -85),
+    new THREE.Vector3(0, 0, -90),
+    new THREE.Vector3(4, 0, -100)
 ];
 const brains = [];
 
-for (let i = 0; i < brainPositions.length + 1; i++) {
+for (let i = 0; i < brainPositions.length; i++) {
     loadBrainModel(brainPositions[i], i);
 }
 const clock = new THREE.Clock();
@@ -52,6 +59,7 @@ loader.load('/threejs_tz/Stickman.glb', (gltf) => {
     man = gltf.scene;
     man.position.z = -2;
     man.rotation.y = Math.PI;
+    man.children[0].children[0].visible = false;
     man.traverse((child) => {
         if (child instanceof THREE.Mesh) {
             const meshMaterial = child.material;
@@ -61,7 +69,6 @@ loader.load('/threejs_tz/Stickman.glb', (gltf) => {
         }
     });
     mixer = new THREE.AnimationMixer(man);
-
     mixer.clipAction(gltf.animations[4]).play();
     window.addEventListener('keypress', (e) => {
         switch (e.code) {
@@ -87,10 +94,11 @@ loader.load('/threejs_tz/TrackFloor.glb', (gltf) => {
     way.scale.set(2, 2, 10)
     scene.add(way)
 })
-function loadBrainModel(position, index) {
+function loadBrainModel(pos, index) {
     loader.load('/threejs_tz/Brain.glb', (gltf) => {
         brain = gltf.scene;
-        brain.position.copy(position);
+        brain.scale.set(2, 2, 2)
+        brain.position.copy(pos);
         brain.traverse((child) => {
             if (child instanceof THREE.Mesh) {
                 const meshMaterial = child.material;
@@ -108,32 +116,36 @@ function loadBrainModel(position, index) {
 function animate() {
     requestAnimationFrame(animate);
     mixer.update(clock.getDelta());
-    wayTextureOffsetX += manSpeed * clock.getDelta();
+    wayTextureOffsetX += (manSpeed * clock.getDelta()) / 10;
     way.traverse((child) => {
         if (child instanceof THREE.Mesh) {
             child.material.map.offset.x = wayTextureOffsetX;
             child.receiveShadow = true;
         }
     })
-
     for (let i = 0; i < brains.length; i++) {
-        const brainEl = brains[i];
+        let brainEl = brains[i];
         const position = brainPositions[i];
         position.z += (manSpeed * 500) * clock.getDelta();
         brainEl.position.copy(position);
         mixer.update(clock.getDelta());
         if (man.position.distanceTo(brainEl.position) < 1) {
             scene.remove(brainEl);
+            let currentSum = parseInt(resultText.textContent);
+            currentSum += 1;
+            resultText.textContent = currentSum;
         }
     }
-    mixer.update(clock.getDelta());
-    controlCamera.update();
-    renderer.render(scene, camera);
+    renderer.render(scene, camera)
+
+
 }
+
 function onBtnClick() {
     animate();
-    buttonPlay.classList.add('is-hidden');
-    textPlay.classList.add('is-hidden')
+    imgWrapper.classList.add('.is-hidden');
+    textPlay.classList.add('is-hidden');
+    buttonPlay.classList.add('is-hidden')
 }
 
 
