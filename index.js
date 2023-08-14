@@ -1,6 +1,6 @@
 import * as THREE from 'three';
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+import { GLTFLoader } from 'GLTFLoader';
+import { OrbitControls } from 'OrbitControls';
 
 const scene = new THREE.Scene();
 const sunLight = new THREE.DirectionalLight(0xffffff, 4);
