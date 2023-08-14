@@ -75,7 +75,7 @@ loader.load('/threejs_tz/Stickman.glb', (gltf) => {
     run = mixer.clipAction(gltf.animations[4]);
     won = mixer.clipAction(gltf.animations[0]);
     died = mixer.clipAction(gltf.animations[2]);
-    console.log(gltf.animations)
+
     run.play();
     window.addEventListener('keypress', (e) => {
         switch (e.code) {
