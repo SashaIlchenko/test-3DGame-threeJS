@@ -145,13 +145,14 @@ function animate() {
         run.stop();
         won.play();
     }
-    else if (parseInt(resultText.textContent) > 120 && parseInt(resultText.textContent) < 200) {
-        setTimeout(() => {
+    setTimeout(() => {
+        if (parseInt(resultText.textContent) < 200) {
             run.stop();
+            won.stop();
             died.play();
-        }, 20000);
+        }
+    }, 22000);
 
-    }
     renderer.render(scene, camera);
 }
 
