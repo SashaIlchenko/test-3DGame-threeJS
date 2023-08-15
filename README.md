@@ -5,7 +5,7 @@ Control: key "A": left,
 key "D": right,
 kew "S": middle.
 
-Livepage on gitHub: https://sashailchenko.github.io/test-3DGame-threeJS/
+Livepage on gitHub: https://sashailchenko.github.io/test-3DGame-threeJS/ 
 Repo : https://github.com/SashaIlchenko/test-3DGame-threeJS
 
 Local : http://localhost:5173/ 

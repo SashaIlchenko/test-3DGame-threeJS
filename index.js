@@ -58,7 +58,7 @@ for (let i = 0; i < brainPositions.length; i++) {
     loadBrainModel(brainPositions[i], i);
 }
 const clock = new THREE.Clock();
-loader.load('/threejs_tz/Stickman.glb', (gltf) => {
+loader.load('/Stickman.glb', (gltf) => {
     man = gltf.scene;
     man.position.z = -2;
     man.rotation.y = Math.PI;
@@ -94,14 +94,14 @@ loader.load('/threejs_tz/Stickman.glb', (gltf) => {
     })
     scene.add(man);
 })
-loader.load('/threejs_tz/TrackFloor.glb', (gltf) => {
+loader.load('/TrackFloor.glb', (gltf) => {
     way = gltf.scene;
     way.position.z = 0;
     way.scale.set(2, 2, 10)
     scene.add(way)
 })
 function loadBrainModel(pos, index) {
-    loader.load('/threejs_tz/Brain.glb', (gltf) => {
+    loader.load('/Brain.glb', (gltf) => {
         brain = gltf.scene;
         brain.scale.set(2, 2, 2)
         brain.position.copy(pos);
