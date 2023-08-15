@@ -8,7 +8,7 @@ sunLight.position.set(5, 5, 5);
 sunLight.castShadow = true;
 scene.add(sunLight);
 
-const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight);
+const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight);
 const sceneContainer = document.querySelector('.scene-container');
 const renderer = new THREE.WebGLRenderer();
 renderer.shadowMap.enabled = true;
@@ -23,11 +23,9 @@ const resultText = document.querySelector('.results-label')
 imgWrapper.addEventListener('click', onBtnClick)
 const controlCamera = new OrbitControls(camera, renderer.domElement);
 controlCamera.update();
-controlCamera.enableDamping = true;
-controlCamera.minDistance = 10;
-camera.position.z = 10;
-camera.position.x = 0;
-camera.position.y = 5;
+controlCamera.enabled = false;
+camera.position.set(0, 5, 10)
+
 let man;
 let mixer;
 let way;
